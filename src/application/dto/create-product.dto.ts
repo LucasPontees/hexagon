@@ -5,11 +5,11 @@ export class CreateProductDto {
   @IsString()
   name: string;
 
-  @IsOptional() // A descrição pode ser opcional
+  @IsOptional()
   @IsString()
   description?: string;
 
   @IsNotEmpty()
   @IsNumber()
-  price: number; // O preço deve ser um número
+  price: number; 
 }
