@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from '../../domain/models/product.model';
+import { Product } from '../../infrastructure/entities/product.entity';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { PrismaService } from '../../infrastructure/prisma/prisma.service';
 
