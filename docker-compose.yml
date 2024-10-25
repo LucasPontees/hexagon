@@ -6,6 +6,6 @@ services:
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
-      POSTGRES_DB: kanoa
+      POSTGRES_DB: api
     volumes:
       - ./data/postgresql:/bitnami/postgresql
