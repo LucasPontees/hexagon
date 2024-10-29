@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+} from '@nestjs/common';
 import { ProductService } from '../../application/services/product.service';
 import { CreateProductDto } from '../../application/dto/create-product.dto';
 import { Product } from '../../infrastructure/entities/product.entity';
@@ -15,5 +24,17 @@ export class ProductController {
   @Get()
   async findAll(): Promise<Product[]> {
     return this.productService.findAll();
+  }
+
+  @Delete(':id')
+  async deleteProduct(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+    try {
+      return await this.productService.delete(id);
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(`Product with ID ${id} not found`);
+      }
+      throw error;
+    }
   }
 }
