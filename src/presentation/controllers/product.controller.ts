@@ -37,4 +37,9 @@ export class ProductController {
       throw error;
     }
   }
+
+  @Get(':id')
+  async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+    return this.productService.findById(id);
+  }
 }
