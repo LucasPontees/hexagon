@@ -7,6 +7,9 @@ import {
 import { Response } from 'express';
 import { DomainError } from '../../domain/errors/domain-error';
 import { ProductNotFoundError } from '../../domain/errors/product-errors';
+import { ProductEmptyUpdateError } from '../../domain/errors/product-errors';
+import { InvalidProductDataError } from '../../domain/errors/product-errors';
+import { ProductPriceError } from '../../domain/errors/product-errors';
 
 @Catch(DomainError)
 export class DomainExceptionFilter implements ExceptionFilter {
@@ -19,6 +22,12 @@ export class DomainExceptionFilter implements ExceptionFilter {
     // Mapeia diferentes tipos de erro para status HTTP apropriados
     if (exception instanceof ProductNotFoundError) {
       status = HttpStatus.NOT_FOUND;
+    } else if (exception instanceof ProductEmptyUpdateError) {
+      status = HttpStatus.BAD_REQUEST;
+    } else if (exception instanceof InvalidProductDataError) {
+      status = HttpStatus.BAD_REQUEST;
+    } else if (exception instanceof ProductPriceError) {
+      status = HttpStatus.BAD_REQUEST;
     }
 
     response.status(status).json({

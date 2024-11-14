@@ -7,10 +7,12 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ProductService } from '../../application/services/product.service';
 import { CreateProductDto } from '../../application/dto/create-product.dto';
 import { Product } from '../../infrastructure/entities/product.entity';
+import { UpdateProductDto } from '../../application/dto/update-product.dto';
 
 @Controller('products')
 export class ProductController {
@@ -41,5 +43,13 @@ export class ProductController {
   @Get(':id')
   async findById(@Param('id', ParseIntPipe) id: number): Promise<Product> {
     return this.productService.findById(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProductDto: UpdateProductDto,
+  ): Promise<Product> {
+    return this.productService.update(id, updateProductDto);
   }
 }
